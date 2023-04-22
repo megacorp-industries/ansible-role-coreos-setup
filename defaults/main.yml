@@ -1,0 +1,5 @@
+USERS: [dedsec]
+CONFIGURE_SSH: false
+INSTALL_ZSH: true
+INSTALL_VIM: true
+INSTALL_TMUX: true
