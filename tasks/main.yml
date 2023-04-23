@@ -78,7 +78,7 @@
       loop: "{{ USERS }}"
     - name: Fix permissions
       file:
-        path: /var/home/{{ item }}
+        path: /var/home/{{ item }}/.vim_runtime
         recurse: true
         owner: "{{ item }}"
         group: "{{ item }}"
@@ -118,7 +118,7 @@
 
 - name: Fix permissions (again)
   file:
-    path: /var/home/{{ item }}
+    path: /var/home/{{ item }}/.vim_runtime
     recurse: true
     owner: "{{ item }}"
     group: "{{ item }}"
