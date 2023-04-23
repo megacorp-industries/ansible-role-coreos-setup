@@ -1,4 +1,11 @@
 ---
+- name: Install simple software without any additional configuration
+  community.general.rpm_ostree_pkg:
+    name: 
+      - podman-compose
+      - htop
+    state: present
+
 - name: Install and configure zsh shell
   block:
     - name: Install zsh
