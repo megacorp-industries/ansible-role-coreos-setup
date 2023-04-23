@@ -4,6 +4,7 @@
     name: 
       - podman-compose
       - htop
+      - tldr
     state: present
 
 - name: Install and configure zsh shell
