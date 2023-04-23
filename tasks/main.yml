@@ -3,6 +3,7 @@
   community.general.rpm_ostree_pkg:
     name: 
       - podman-compose
+      - distrobox
       - htop
       - tldr
     state: present
