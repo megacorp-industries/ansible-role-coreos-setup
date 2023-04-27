@@ -103,10 +103,14 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-#
-# Custom Config
+
+
+##<Custom Config>##
+
+#Call the command 'neofetch' using Megacorp's Custom Logo
 neofetch --source ~/.config/neofetch/megacorplogo
 
+#Create a shell alias for running the butane command in a container (takes .bu file as input)
 alias butane='podman run --rm --interactive         \
               --security-opt label=disable          \
               --volume "${PWD}":/pwd --workdir /pwd \
