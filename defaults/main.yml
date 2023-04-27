@@ -1,4 +1,4 @@
-USERS: [dedsec]
+USERS: [admin]
 CONFIGURE_SSH: false
 INSTALL_ZSH: true
 INSTALL_VIM: true
