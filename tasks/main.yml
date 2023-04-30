@@ -119,7 +119,7 @@
 
 - name: Fix permissions (again)
   file:
-    path: /var/home/{{ item }}/
+    path: /var/home/{{ item }}/*
     recurse: true
     owner: "{{ item }}"
     group: "{{ item }}"
