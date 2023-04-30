@@ -120,7 +120,7 @@
 
 - name: Fix permissions (again)
   file:
-    path: /var/home/{{ item }}/.vim_runtime
+    path: /var/home/{{ item }}/
     recurse: true
     owner: "{{ item }}"
     group: "{{ item }}"
