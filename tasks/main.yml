@@ -77,7 +77,7 @@
         depth: 1
         dest: /var/home/{{item}}/.vim_runtime
       loop: "{{ USERS }}"
-    - name: Fix permissions
+    - name: Fix permissions so vim script can execute
       file:
         path: /var/home/{{ item }}/.vim_runtime
         recurse: true
