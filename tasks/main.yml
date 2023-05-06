@@ -27,6 +27,13 @@
         src: files/.zshrc
         dest: /var/home/{{ item }}
       loop: "{{ USERS }}"
+    - name: Fix file permissions
+      file:
+        path: /var/home/{{ item }}/
+        recurse: true
+        owner: "{{ item }}"
+        group: "{{ item }}"
+      loop: "{{ USERS }}"
     - name: Change default shell
       user:
         name: "{{ item }}"
@@ -49,13 +56,19 @@
         repo: "https://github.com/gpakosz/.tmux.git"
         dest: /var/home/{{ item }}/.tmux
       loop: "{{ USERS }}"
-    - name: Create tmux config symlink
-      command: ln -s -f .tmux/.tmux.conf
-      args:
-        chdir: /var/home/{{ item }}
+    - name: Fix file permissions for tmux
+      file:
+        path: /var/home/{{ item }}/.tmux
+        owner: "{{ item }}"
+        group: "{{ item }}"
       loop: "{{ USERS }}"
     - name: Copy local tmux config to home dir
       command: cp .tmux/.tmux.conf.local .
+      args:
+        chdir: /var/home/{{ item }}
+      loop: "{{ USERS }}"
+    - name: Create tmux config symlink
+      command: ln -s -f .tmux/.tmux.conf
       args:
         chdir: /var/home/{{ item }}
       loop: "{{ USERS }}"
@@ -116,11 +129,10 @@
         src: files/neofetch/megacorplogo
         dest: /var/home/{{ item }}/.config/neofetch/
       loop: "{{ USERS }}"
-
-#- name: Fix permissions (again)
-#  file:
-#    path: /var/home/{{ item }}/
-#    recurse: true
-#    owner: "{{ item }}"
-#    group: "{{ item }}"
-#  loop: "{{ USERS }}"
+    - name: Fix permissions on .config dir
+      file:
+        path: /var/home/{{ item }}/.config
+        recurse: true
+        owner: "{{ item }}"
+        group: "{{ item }}"
+      loop: "{{ USERS }}"
