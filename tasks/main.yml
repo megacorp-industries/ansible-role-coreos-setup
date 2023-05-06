@@ -80,7 +80,7 @@
     - name: Fix permissions so vim script can execute
       file:
         path: /var/home/{{ item }}/.vim_runtime
-        recurse: true
+        recurse: false
         owner: "{{ item }}"
         group: "{{ item }}"
       loop: "{{ USERS }}"
@@ -117,10 +117,10 @@
         dest: /var/home/{{ item }}/.config/neofetch/
       loop: "{{ USERS }}"
 
-- name: Fix permissions (again)
-  file:
-    path: /var/home/{{ item }}/
-    recurse: true
-    owner: "{{ item }}"
-    group: "{{ item }}"
-  loop: "{{ USERS }}"
+#- name: Fix permissions (again)
+#  file:
+#    path: /var/home/{{ item }}/
+#    recurse: true
+#    owner: "{{ item }}"
+#    group: "{{ item }}"
+#  loop: "{{ USERS }}"
