@@ -10,9 +10,6 @@ export ZSH=$HOME/.oh-my-zsh
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="xiong-chiamiov-plus"
 
-# Launch tmux on startup
-if [ "$TMUX" = "" ]; then tmux; fi
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -115,3 +112,7 @@ alias butane='podman run --rm --interactive         \
               --security-opt label=disable          \
               --volume "${PWD}":/pwd --workdir /pwd \
               quay.io/coreos/butane:release'
+
+# Launch tmux on shell startup (disabled by default due to eventual nesting problems)
+#if [ "$TMUX" = "" ]; then tmux; fi
+
