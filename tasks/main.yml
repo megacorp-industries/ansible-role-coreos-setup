@@ -143,10 +143,3 @@
         group: "{{ item }}"
       loop: "{{ USERS }}"
 
-- name: Build an image and push it to a private repo
-  community.docker.docker_image:
-    build:
-      path: files/toolbox/Dockerfile
-    name: localhost/megacorp-toolbox
-    tag: v1
-    source: build
