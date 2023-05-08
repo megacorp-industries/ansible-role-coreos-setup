@@ -7,6 +7,18 @@
       - tldr
     state: present
 
+- name: Install virtualization packages
+  community.general.rpm_ostree_pkg:
+    name: 
+      - libvirt-daemon-config-network
+      - libvirt-daemon-kvm
+      - qemu-kvm
+      - virt-install
+      - virt-manager
+      - virt-viewer
+    state: present
+  when: INSTALL_VIRTUALIZATION
+
 - name: Install and configure zsh shell
   block:
     - name: Install zsh
