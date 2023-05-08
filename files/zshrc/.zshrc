@@ -116,3 +116,6 @@ alias butane='podman run --rm --interactive         \
 # Launch tmux on shell startup (disabled by default due to eventual nesting problems)
 #if [ "$TMUX" = "" ]; then tmux; fi
 
+# Custom toolbox aliases
+alias tbc='toolbox create -c custom-toolbox -i $USER/custom-toolbox'
+alias tbe='toolbox enter custom-toolbox'
