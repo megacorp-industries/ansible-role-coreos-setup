@@ -92,37 +92,41 @@
       loop: "{{ USERS }}"
   when: INSTALL_TMUX
 
-- name: Install and configure vim
+- name: Install and configure nvim
   block:
-    - name: Install vim
+    - name: Install nvim and ripgrep
       community.general.rpm_ostree_pkg:
-        name: vim
+        name: 
+          - neovim
+          - ripgrep
         state: present
-    - name: Make vim git directory safe
-      command: git config --global --add safe.directory /var/home/{{ item }}/.vim_runtime
+    - name: Make nvim git directory safe
+      command: git config --global --add safe.directory /var/home/{{ item }}/.config/nvim
       check_mode: no
       loop: "{{ USERS }}"
-    - name: Download awesome vim from git
+    - name: Download nvchad from git
       git:
-        repo: https://github.com/amix/vimrc.git
+        repo: https://github.com/nvchad/nvchad
         depth: 1
-        dest: /var/home/{{item}}/.vim_runtime
+        dest: /var/home/{{ item }}/.config/nvim
       loop: "{{ USERS }}"
-    - name: Fix permissions so vim script can execute
+    - name: Fix permissions on nvim dir
       file:
-        path: /var/home/{{ item }}/.vim_runtime
-        recurse: false
+        path: /var/home/{{ item }}/.config
+        recurse: true
         owner: "{{ item }}"
         group: "{{ item }}"
       loop: "{{ USERS }}"
-    - name: Execute awesome vim install
-      command: sh /var/home/{{ item }}/.vim_runtime/install_awesome_vimrc.sh
-      become_user: "{{ item }}"
+    - name: Create fonts directory if it doesn't exist
+      file:
+        path: /var/home/{{ item }}/.local/share/fonts
+        state: directory
       loop: "{{ USERS }}"
-    - name: Install vim airline
-      git:
-        repo: https://github.com/vim-airline/vim-airline.git
-        dest: /var/home/{{ item }}/.vim_runtime/my_plugins/vim-airline
+    - name: Downloaded Terminus font from github
+      unarchive:
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.1/Terminus.zip
+        dest: /var/home/{{ item }}/.local/share/fonts
+        remote_src: true
       loop: "{{ USERS }}"
   when: INSTALL_VIM
 
@@ -149,7 +153,7 @@
       loop: "{{ USERS }}"
     - name: Fix permissions on .config dir
       file:
-        path: /var/home/{{ item }}/.config
+        path: /var/home/{{ item }}/.config/neofetch
         recurse: true
         owner: "{{ item }}"
         group: "{{ item }}"
