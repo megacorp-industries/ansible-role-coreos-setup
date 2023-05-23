@@ -1,4 +1,12 @@
 ---
+- name: Create default user
+  user:
+    name: "{{ item }}"
+    comment: This user has been provisioned by Megacorp
+    uid: 1069
+    group: wheel
+  loop: "{{ USERS }}"
+
 - name: Install simple software without any additional configuration
   community.general.rpm_ostree_pkg:
     name: 
