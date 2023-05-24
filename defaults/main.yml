@@ -1,4 +1,4 @@
-USERS: [user]
+USERS: [megacorp]
 INSTALL_ZSH: true
 INSTALL_VIM: true
 INSTALL_TMUX: true
