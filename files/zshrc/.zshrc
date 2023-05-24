@@ -119,3 +119,6 @@ alias butane='podman run --rm --interactive         \
 # Custom toolbox aliases
 alias tbc='toolbox create -c custom-toolbox -i $USER/custom-toolbox'
 alias tbe='toolbox enter custom-toolbox'
+
+# Pip install ansible to ~/.local/bin which isn't on PATH by default
+export PATH="$PATH:$HOME/.local/bin"
