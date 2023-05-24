@@ -4,7 +4,8 @@
     name: "{{ item }}"
     comment: This user has been provisioned by Megacorp
     uid: 1069
-    group: wheel
+    groups: wheel
+    
   loop: "{{ USERS }}"
 
 - name: Install simple software without any additional configuration
