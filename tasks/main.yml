@@ -9,6 +9,7 @@
 - name: Install simple software without any additional configuration
   community.general.rpm_ostree_pkg:
     name: 
+      - kubernetes-kubeadm
       - podman-compose
       - htop
       - tldr
