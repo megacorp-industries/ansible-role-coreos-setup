@@ -13,6 +13,7 @@
       - podman-compose
       - htop
       - tldr
+      - clang
     state: present
 
 - name: Install virtualization packages
