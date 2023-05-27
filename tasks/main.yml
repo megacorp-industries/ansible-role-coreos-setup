@@ -10,10 +10,11 @@
   community.general.rpm_ostree_pkg:
     name: 
       - kubernetes-kubeadm
+      - gnome-tweaks
       - podman-compose
       - htop
       - tldr
-      - clang
+      - gcc-c++
     state: present
 
 - name: Install virtualization packages
