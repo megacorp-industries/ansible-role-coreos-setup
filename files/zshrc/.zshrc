@@ -122,3 +122,6 @@ alias tbe='toolbox enter custom-toolbox'
 
 # Pip install ansible to ~/.local/bin which isn't on PATH by default
 export PATH="$PATH:$HOME/.local/bin"
+
+# Path for default ansible install location (using pip)
+export PATH="${PATH}:${HOME}/.local/bin"
