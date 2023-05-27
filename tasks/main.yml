@@ -5,6 +5,19 @@
     comment: This user has been provisioned by Megacorp
     groups: wheel
   loop: "{{ USERS }}"
+  
+- name: Install and configure nvidia drivers
+  block:
+    - name: Install nvidia driver packages
+      community.general.rpm_ostree_pkg:
+        name: 
+          - akmod-nvidia
+          - xorg-x11-drv-nvidia
+          - xorg-x11-drv-nvidia-cuda
+        state: present
+    - name: Configure nvidia drivers
+      command: rpm-ostree kargs --append=rd.driver.blacklist=nouveau --append=modprobe.blacklist=nouveau --append=nvidia-drm.modeset=1
+  when: INSTALL_NVIDIA_DRIVERS
 
 - name: Install simple software without any additional configuration
   community.general.rpm_ostree_pkg:
