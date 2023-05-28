@@ -24,7 +24,7 @@
       - podman-compose
       - htop
       - tldr
-      - gcc-c++
+      - gcc
     state: present
 
 - name: Install virtualization packages
