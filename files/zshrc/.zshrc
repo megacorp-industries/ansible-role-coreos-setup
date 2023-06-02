@@ -125,7 +125,3 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # Path for default ansible install location (using pip)
 export PATH="${PATH}:${HOME}/.local/bin"
-
-# Kubernetes specific configs
-[[ $commands[kubectl] ]] && source <(kubectl completion zsh) 
-alias k='kubectl'
