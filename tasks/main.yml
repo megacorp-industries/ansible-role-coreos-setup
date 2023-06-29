@@ -5,22 +5,10 @@
     comment: This user has been provisioned by Megacorp
     groups: wheel
   loop: "{{ USERS }}"
-
-- name: Setup flathub
-  command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-- name: Install flatpaks
-  community.general.flatpak:
-    name:
-      - org.keepassxc.KeePassXC
-      - com.mattjakeman.ExtensionManager
-    state: present
   
 - name: Install simple software without any additional configuration
   community.general.rpm_ostree_pkg:
     name: 
-      - kubernetes-kubeadm
-      - gnome-tweaks
       - podman-compose
       - htop
       - tldr
