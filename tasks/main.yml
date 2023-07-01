@@ -34,7 +34,7 @@
         repo: "https://github.com/ohmyzsh/ohmyzsh.git"
         dest: /etc/skel/.oh-my-zsh
       loop: "{{ USERS }}"
-    - name: Copy zsh config
+    - name: Copy zsh config to skel dir
       copy:
         src: files/zshrc/.zshrc
         dest: /etc/skel
@@ -47,30 +47,20 @@
         name: tmux
         state: present
     - name: Make tmux git directory safe
-      command: git config --global --add safe.directory /var/home/{{ item }}/.tmux
+      command: git config --global --add safe.directory /etc/skel/.tmux
       check_mode: no
-      loop: "{{ USERS }}"
     - name: Download pretty tmux from git
       git:
         repo: "https://github.com/gpakosz/.tmux.git"
-        dest: /var/home/{{ item }}/.tmux
-      loop: "{{ USERS }}"
-    - name: Fix file permissions for tmux
-      file:
-        path: /var/home/{{ item }}/.tmux
-        owner: "{{ item }}"
-        group: "{{ item }}"
-      loop: "{{ USERS }}"
+        dest: /etc/skel/.tmux
     - name: Copy local tmux config to home dir
       command: cp .tmux/.tmux.conf.local .
       args:
-        chdir: /var/home/{{ item }}
-      loop: "{{ USERS }}"
+        chdir: /etc/skel
     - name: Create tmux config symlink
       command: ln -s -f .tmux/.tmux.conf
       args:
-        chdir: /var/home/{{ item }}
-      loop: "{{ USERS }}"
+        chdir: /etc/skel
   when: INSTALL_TMUX
 
 - name: Install and configure nvim

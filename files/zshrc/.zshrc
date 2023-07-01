@@ -113,15 +113,12 @@ alias butane='podman run --rm --interactive         \
               --volume "${PWD}":/pwd --workdir /pwd \
               quay.io/coreos/butane:release'
 
-# Launch tmux on shell startup (disabled by default due to eventual nesting problems)
-#if [ "$TMUX" = "" ]; then tmux; fi
-
-# Custom toolbox aliases
-alias tbc='toolbox create -c custom-toolbox -i $USER/custom-toolbox'
-alias tbe='toolbox enter custom-toolbox'
+# For reloading podman-compose stacks
+alias reload="podman-compose down && podman-compose up -d"
 
 # Pip install ansible to ~/.local/bin which isn't on PATH by default
 export PATH="$PATH:$HOME/.local/bin"
 
 # Path for default ansible install location (using pip)
 export PATH="${PATH}:${HOME}/.local/bin"
+
