@@ -71,34 +71,27 @@
           - neovim
           - ripgrep
         state: present
+    - name: Create .config dir in skel
+      file:
+        path: /etc/skel/.config
+        state: directory
     - name: Make nvim git directory safe
-      command: git config --global --add safe.directory /var/home/{{ item }}/.config/nvim
+      command: git config --global --add safe.directory /etc/skel/.config/nvim
       check_mode: no
-      loop: "{{ USERS }}"
     - name: Download nvchad from git
       git:
         repo: https://github.com/nvchad/nvchad
         depth: 1
-        dest: /var/home/{{ item }}/.config/nvim
-      loop: "{{ USERS }}"
-    - name: Fix permissions on nvim dir
+        dest: /etc/skel/.config/nvim
+    - name: Create fonts directory 
       file:
-        path: /var/home/{{ item }}/.config
-        recurse: true
-        owner: "{{ item }}"
-        group: "{{ item }}"
-      loop: "{{ USERS }}"
-    - name: Create fonts directory if it doesn't exist
-      file:
-        path: /var/home/{{ item }}/.local/share/fonts
+        path: /etc/skel/.local/share/fonts
         state: directory
-      loop: "{{ USERS }}"
     - name: Downloaded Terminus font from github
       unarchive:
         src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.1/Terminus.zip
-        dest: /var/home/{{ item }}/.local/share/fonts
+        dest: /etc/skel/.local/share/fonts
         remote_src: true
-      loop: "{{ USERS }}"
   when: INSTALL_VIM
 
 - name: Configure MOTD
