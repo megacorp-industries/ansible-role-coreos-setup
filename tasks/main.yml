@@ -7,6 +7,8 @@
       - tldr
       - gcc
     state: present
+  notify:
+  - Reboot if required
 
 - name: Install virtualization packages
   community.general.rpm_ostree_pkg:
@@ -17,6 +19,8 @@
       - virt-install
     state: present
   when: INSTALL_VIRTUALIZATION
+  notify:
+  - Reboot if required
 
 - name: Install and configure zsh shell
   block:
@@ -36,6 +40,8 @@
         src: files/zshrc/.zshrc
         dest: /etc/skel
   when: INSTALL_ZSH
+  notify:
+  - Reboot if required
 
 - name: Install and configure tmux
   block:
@@ -59,6 +65,8 @@
       args:
         chdir: /etc/skel
   when: INSTALL_TMUX
+  notify:
+  - Reboot if required
 
 - name: Install and configure nvim
   block:
@@ -90,6 +98,8 @@
 #        dest: /etc/skel/.local/share/fonts
 #        remote_src: true
   when: INSTALL_VIM
+  notify:
+  - Reboot if required
 
 - name: Configure MOTD
   block:
@@ -109,3 +119,5 @@
       copy:
         src: files/neofetch/megacorplogo
         dest: /etc/skel/.config/neofetch/
+  notify:
+  - Reboot if required
