@@ -1,11 +1,4 @@
 ---
-- name: Create default user
-  user:
-    name: "{{ item }}"
-    comment: This user has been provisioned by Megacorp
-    groups: wheel
-  loop: "{{ USERS }}"
-  
 - name: Install simple software without any additional configuration
   community.general.rpm_ostree_pkg:
     name: 
@@ -34,37 +27,17 @@
         name: zsh
         state: present
     - name: Make ohmyzsh git directory safe
-      command: git config --global --add safe.directory /var/home/{{ item }}/.oh-my-zsh
+      command: git config --global --add safe.directory /etc/skel/.oh-my-zsh
       check_mode: no
-      loop: "{{ USERS }}"
     - name: Clone ohmyzsh repo
       git:
         repo: "https://github.com/ohmyzsh/ohmyzsh.git"
-        dest: /var/home/{{ item }}/.oh-my-zsh
+        dest: /etc/skel/.oh-my-zsh
       loop: "{{ USERS }}"
     - name: Copy zsh config
       copy:
         src: files/zshrc/.zshrc
-        dest: /var/home/{{ item }}
-      loop: "{{ USERS }}"
-    - name: Fix file permission on zsh config
-      file:
-        path: /var/home/{{ item }}/.zshrc
-        owner: "{{ item }}"
-        group: "{{ item }}"
-      loop: "{{ USERS }}"
-    - name: Fix file permissions on oh-my-zsh folder
-      file:
-        path: /var/home/{{ item }}/.oh-my-zsh
-        recurse: true
-        owner: "{{ item }}"
-        group: "{{ item }}"
-      loop: "{{ USERS }}"
-    - name: Change default shell
-      user:
-        name: "{{ item }}"
-        shell: /bin/zsh
-      loop: "{{ USERS }}"
+        dest: /etc/skel
   when: INSTALL_ZSH
 
 - name: Install and configure tmux
