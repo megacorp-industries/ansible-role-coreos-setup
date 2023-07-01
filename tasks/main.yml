@@ -87,11 +87,11 @@
       file:
         path: /etc/skel/.local/share/fonts
         state: directory
-    - name: Downloaded Terminus font from github
-      unarchive:
-        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.1/Terminus.zip
-        dest: /etc/skel/.local/share/fonts
-        remote_src: true
+#    - name: Download font 
+#      unarchive:
+#        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.1/Terminus.zip
+#        dest: /etc/skel/.local/share/fonts
+#        remote_src: true
   when: INSTALL_VIM
 
 - name: Configure MOTD
@@ -102,24 +102,13 @@
         state: present
     - name: Ensure .config file exists
       file:
-        path: /var/home/{{ item }}/.config/neofetch
+        path: /etc/skel/.config/neofetch
         state: directory
-      loop: "{{ USERS }}"
     - name: Copy neofetch config
       copy:
         src: files/neofetch/config.conf
-        dest: /var/home/{{ item }}/.config/neofetch/
-      loop: "{{ USERS }}"
+        dest: /etc/skel/.config/neofetch/
     - name: Copy megacorplogo
       copy:
         src: files/neofetch/megacorplogo
-        dest: /var/home/{{ item }}/.config/neofetch/
-      loop: "{{ USERS }}"
-    - name: Fix permissions on .config dir
-      file:
-        path: /var/home/{{ item }}/.config/neofetch
-        recurse: true
-        owner: "{{ item }}"
-        group: "{{ item }}"
-      loop: "{{ USERS }}"
-
+        dest: /etc/skel/.config/neofetch/
