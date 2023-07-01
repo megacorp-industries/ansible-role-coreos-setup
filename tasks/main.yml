@@ -15,8 +15,6 @@
       - libvirt-daemon-kvm
       - qemu-kvm
       - virt-install
-      - virt-manager
-      - virt-viewer
     state: present
   when: INSTALL_VIRTUALIZATION
 
@@ -33,7 +31,6 @@
       git:
         repo: "https://github.com/ohmyzsh/ohmyzsh.git"
         dest: /etc/skel/.oh-my-zsh
-      loop: "{{ USERS }}"
     - name: Copy zsh config to skel dir
       copy:
         src: files/zshrc/.zshrc
