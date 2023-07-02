@@ -1,4 +1,8 @@
 ---
+- name: Set the timezone
+  timezone:
+    name: Australia/Darwin
+
 - name: Install simple software without any additional configuration
   community.general.rpm_ostree_pkg:
     name: 
