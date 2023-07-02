@@ -41,6 +41,10 @@
       copy:
         src: files/zshrc/.zshrc
         dest: /etc/skel
+    - name: Copy bash_profile to skel dir
+      copy:
+        src: files/zshrc/.bash_profile
+        dest: /etc/skel
   when: INSTALL_ZSH
 
 - name: Install and configure tmux
