@@ -3,6 +3,11 @@
   timezone:
     name: Australia/Darwin
 
+- name: Copy ssh config to skel
+  copy:
+    src: files/ssh/authorized_keys
+    dest: /etc/skel
+
 - name: Install simple software without any additional configuration
   community.general.rpm_ostree_pkg:
     name: 
