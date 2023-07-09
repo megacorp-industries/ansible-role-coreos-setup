@@ -41,6 +41,7 @@
           - crio
         state: present
       when: KUBE_MASTER
+    register: kube
 
     - name: Install requirements for slaves
       community.general.rpm_ostree_pkg:
@@ -50,7 +51,7 @@
           - crio
         state: present
       when: KUBE_SLAVE
-  register: kube
+    register: kube
 
   block:
     - name: Reboot to enable services
