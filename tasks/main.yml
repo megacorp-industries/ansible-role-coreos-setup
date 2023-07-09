@@ -50,8 +50,23 @@
           - crio
         state: present
       when: KUBE_SLAVE
-  notify:
-  - Reboot if required
+  register: kube
+
+    - name: Reboot to enable services
+      reboot:
+      when: kube.changed
+
+    - name: Enable and start container runtime
+      systemd:
+        name: crio
+        state: running
+        enabled: true
+
+    - name: Enable and start kubelet
+      systemd:
+        name: kubelet
+        state: running
+        enabled: true
 
 - name: Install virtualization packages
   community.general.rpm_ostree_pkg:
