@@ -50,6 +50,8 @@
           - crio
         state: present
       when: KUBE_SLAVE
+  notify:
+  - Reboot if required
 
 - name: Install virtualization packages
   community.general.rpm_ostree_pkg:
