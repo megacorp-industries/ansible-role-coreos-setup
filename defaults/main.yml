@@ -1,5 +1,6 @@
-USERS: [megacorp]
 INSTALL_ZSH: true
 INSTALL_VIM: true
 INSTALL_TMUX: true
 INSTALL_VIRTUALIZATION: false
+KUBE_MASTER: false
+KUBE_SLAVE: false

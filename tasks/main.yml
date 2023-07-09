@@ -30,6 +30,27 @@
   notify:
   - Reboot if required
 
+- name: Configure kubernetes
+  block:
+    - name: Install requirements for masters
+      community.general.rpm_ostree_pkg:
+        name: 
+          - kubelet
+          - kubeadm
+          - kubectl
+          - crio
+        state: present
+      when: KUBE_MASTER
+
+    - name: Install requirements for slaves
+      community.general.rpm_ostree_pkg:
+        name: 
+          - kubelet
+          - kubeadm
+          - crio
+        state: present
+      when: KUBE_SLAVE
+
 - name: Install virtualization packages
   community.general.rpm_ostree_pkg:
     name: 
