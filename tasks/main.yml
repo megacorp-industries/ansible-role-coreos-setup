@@ -52,9 +52,9 @@
       when: KUBE_SLAVE
   register: kube
 
+  block:
     - name: Reboot to enable services
       reboot:
-      when: kube.changed
 
     - name: Enable and start container runtime
       systemd:
@@ -67,6 +67,7 @@
         name: kubelet
         state: running
         enabled: true
+  when: kube.changed
 
 - name: Install virtualization packages
   community.general.rpm_ostree_pkg:
