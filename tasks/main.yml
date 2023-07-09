@@ -30,43 +30,33 @@
   notify:
   - Reboot if required
 
-- name: Configure kubernetes
+- name: Install kubernetes requirements
   block:
     - name: Install requirements for masters
       community.general.rpm_ostree_pkg:
         name: 
           - kubelet
           - kubeadm
-          - kubectl
           - crio
         state: present
       when: KUBE_MASTER
-    register: kube
+      register: kube
 
-    - name: Install requirements for slaves
-      community.general.rpm_ostree_pkg:
-        name: 
-          - kubelet
-          - kubeadm
-          - crio
-        state: present
-      when: KUBE_SLAVE
-    register: kube
-
+- name:  Enable and start services
   block:
-    - name: Reboot to enable services
+    - name: Reboot into new deployment 
       reboot:
 
     - name: Enable and start container runtime
       systemd:
         name: crio
-        state: running
+        state: started
         enabled: true
 
     - name: Enable and start kubelet
       systemd:
         name: kubelet
-        state: running
+        state: started
         enabled: true
   when: kube.changed
 
