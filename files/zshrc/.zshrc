@@ -123,4 +123,4 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="${PATH}:${HOME}/.local/bin"
 
 # For running aws cli in container
-alias aws='podman run --rm -it -v ~/.aws:/root/.aws public.ecr.aws/aws-cli/aws-cli'
+alias aws='podman run --rm -it -v ~/.aws:/root/.aws:Z public.ecr.aws/aws-cli/aws-cli'
