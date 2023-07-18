@@ -117,7 +117,7 @@ alias butane='podman run --rm --interactive         \
 alias reload="podman-compose down && podman-compose up -d"
 
 # For running aws cli in container
-alias aws='podman run --rm -it -v ~/.aws:/root/.aws:Z public.ecr.aws/aws-cli/aws-cli'
+#alias aws='podman run --rm -it -v ~/.aws:/root/.aws:Z public.ecr.aws/aws-cli/aws-cli'
 
 # Pip install ansible to ~/.local/bin which isn't on PATH by default
 export PATH="${PATH}:${HOME}/.local/bin"
