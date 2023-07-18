@@ -25,7 +25,7 @@
       - podman-compose
       - htop
       - tldr
-      - gcc
+      - g++
     state: present
   notify:
   - Reboot if required
