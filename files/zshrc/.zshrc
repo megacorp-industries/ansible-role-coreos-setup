@@ -122,3 +122,5 @@ export PATH="$PATH:$HOME/.local/bin"
 # Path for default ansible install location (using pip)
 export PATH="${PATH}:${HOME}/.local/bin"
 
+# For running aws cli in container
+alias aws='podman run --rm -it -v ~/.aws:/root/.aws public.ecr.aws/aws-cli/aws-cli'
