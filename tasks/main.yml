@@ -95,7 +95,7 @@
         name: systemd-networkd
         state: started
         enabled: true
-  when: INSTALL_SYSTEMD-NETWORKD
+  when: INSTALL_SYSTEMD_NETWORKD
 
 - name: Install and configure zsh shell
   block:
