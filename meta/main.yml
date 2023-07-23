@@ -2,9 +2,9 @@
 dependencies: []
 
 galaxy_info:
-  role_name: generic-setup
+  role_name: coreos-setup
   author: mi
-  description: A generic setup for ostree
+  description: A setup for coreos
   company: "Megacorp Industries"
   min_ansible_version: 2.4
   galaxy_tags:
