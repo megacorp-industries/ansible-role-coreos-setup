@@ -74,6 +74,31 @@
 
 - name: Install and configure zsh shell
   block:
+    - name: Install systemd-networkd
+      community.general.rpm_ostree_pkg:
+        name: systemd-networkd
+        state: present
+      register: layersAdded
+
+    - name: Reboot if required
+      reboot:
+      when: layersAdded.changed
+
+    - name: Stop and disable NetworkManager
+      systemd:
+        name: NetworkManager
+        state: stopped
+        enabled: false
+
+    - name: Start and enable systemd-networkd
+      systemd:
+        name: systemd-networkd
+        state: started
+        enabled: true
+  when: INSTALL_SYSTEMD-NETWORKD
+
+- name: Install and configure zsh shell
+  block:
     - name: Install zsh
       community.general.rpm_ostree_pkg:
         name: zsh
