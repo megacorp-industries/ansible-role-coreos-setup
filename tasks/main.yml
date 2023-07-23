@@ -3,6 +3,11 @@
   timezone:
     name: Australia/Darwin
 
+- name: Enable privilleged ports
+  copy:
+    src: files/sysctl/25-privilegedports.conf
+    dest: /etc/sysctl.d/25-privilegedports.conf
+
 - name: Delete install-python service unit file
   file:
     path: /etc/systemd/system/install-python.service
@@ -39,6 +44,10 @@
           - kubeadm
           - crio
         state: present
+    - name: Copy over kubernetes kernel config
+      copy:
+        src: files/sysctl/10-kubernetes.conf
+        dest: /etc/sysctl.d/10-kubernetes.conf
       when: KUBE_MASTER
       register: kube
 
