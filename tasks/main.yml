@@ -46,13 +46,11 @@
   block:
     - name: Reboot into new deployment 
       reboot:
-
     - name: Enable and start container runtime
       systemd:
         name: crio
         state: started
         enabled: true
-
     - name: Enable and start kubelet
       systemd:
         name: kubelet
@@ -72,7 +70,7 @@
   notify:
   - Reboot if required
 
-- name: Install and configure zsh shell
+- name: Replace NetworkManager with systemd-networkd
   block:
     - name: Install systemd-networkd
       community.general.rpm_ostree_pkg:
