@@ -18,11 +18,12 @@
     - name: Create skel .ssh dir
       file:
         state: directory
-        path: /etc/skel/.ssh
-    - name: Copy ssh config to skel
+        path: /etc/skel/.ssh/authorized_keys.d
+    - name: Copy existing ssh config to skel
       copy:
-        src: files/ssh/authorized_keys
-        dest: /etc/skel/.ssh
+        src: /var/home/megacorp/.ssh/authorized_keys.d/ignition
+        dest: /etc/skel/.ssh/authorized_keys.d
+        remote_src: true
 
 - name: Install simple software without any additional configuration
   community.general.rpm_ostree_pkg:
