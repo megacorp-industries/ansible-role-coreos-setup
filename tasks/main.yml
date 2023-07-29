@@ -47,7 +47,7 @@
         state: present
     - name: Copy over kubernetes kernel config
       copy:
-        src: files/sysctl/10-kubernetes.conf
+        src: files/sysctl/15-kubernetes.conf
         dest: /etc/sysctl.d/10-kubernetes.conf
       when: KUBE_MASTER
       register: kube
