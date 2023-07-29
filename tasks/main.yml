@@ -52,22 +52,6 @@
       when: KUBE_MASTER
       register: kube
 
-- name:  Enable and start services
-  block:
-    - name: Reboot into new deployment 
-      reboot:
-    - name: Enable and start container runtime
-      systemd:
-        name: crio
-        state: started
-        enabled: true
-    - name: Enable and start kubelet
-      systemd:
-        name: kubelet
-        state: started
-        enabled: true
-  when: kube.changed
-
 - name: Install virtualization packages
   community.general.rpm_ostree_pkg:
     name: 
