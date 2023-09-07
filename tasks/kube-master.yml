@@ -1,0 +1,15 @@
+---
+- name: Install kubernetes requirements
+  block:
+    - name: Install requirements for masters
+      community.general.rpm_ostree_pkg:
+        name: 
+          - kubelet
+          - kubeadm
+          - crio
+        state: present
+    - name: Copy over kubernetes kernel config
+      copy:
+        src: files/sysctl/15-kubernetes.conf
+        dest: /etc/sysctl.d/10-kubernetes.conf
+      register: kube

@@ -1,0 +1,45 @@
+---
+- name: Set the timezone
+  timezone:
+    name: Australia/Darwin
+
+- name: Enable privilleged ports
+  copy:
+    src: files/sysctl/25-privilegedports.conf
+    dest: /etc/sysctl.d/25-privilegedports.conf
+
+- name: Delete install-python service unit file
+  file:
+    path: /etc/systemd/system/install-python.service
+    state: absent
+
+- name: Configure automatic ssh 
+  block:
+    - name: Create skel .ssh dir
+      file:
+        state: directory
+        path: /etc/skel/.ssh/authorized_keys.d
+    - name: Copy existing ssh config to skel
+      copy:
+        src: /var/home/megacorp/.ssh/authorized_keys.d/ignition
+        dest: /etc/skel/.ssh/authorized_keys.d
+        remote_src: true
+
+- name: Configure MOTD
+  block:
+    - name: Install neofetch
+      community.general.rpm_ostree_pkg:
+        name: neofetch
+        state: present
+    - name: Ensure .config file exists
+      file:
+        path: /etc/skel/.config/neofetch
+        state: directory
+    - name: Copy neofetch config
+      copy:
+        src: files/neofetch/config.conf
+        dest: /etc/skel/.config/neofetch/
+    - name: Copy megacorplogo
+      copy:
+        src: files/neofetch/megacorplogo
+        dest: /etc/skel/.config/neofetch/
